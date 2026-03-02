@@ -2,19 +2,18 @@
 
 echo 'This is git directory script assuming that parent is git repositories.'
 
-#rm -f ../gitrepos
-#cp -f ./gitscript.sh ../gitscript.sh
-
 case "$1" in
   "")
       echo 'Init is completed, change dir to parent to run gitscript.sh commands.'
       exit
       ;;
   "gitrepourl")
-      echo 'Read git remote entries in your repositories.'
+      echo 'Read git remote entries in your repositories if available.'
       echo 'Read ./git/config url from all projects and create git urls file gitrepos'
       cat ../*/.git/config | grep "url = " | sort | awk '{print substr($0, 8)}' > ./gitrepos
       echo 'Print gitrepos'
+      echo 'Find directories that do not contain .git directory'
+      find .. -maxdepth 1 -type d '!' -exec test -d "{}/.git" \; -print | sort | sed '1d' | awk '{print substr($0, 4)}' >> ./gitrepos
       cat gitrepos
       exit
       ;;
@@ -47,8 +46,13 @@ case "$1" in
           my_array+=("$line")
       done < "$INPUT_FILE"
       echo "Clone repositories."
+      START_CHAR="/"
+      END_CHAR="."
       for entry in "${my_array[@]}"; do
-          git clone $entry
+          temp="${entry##*$START_CHAR}"
+          REPO="${temp%%$END_CHAR*}"
+          echo "git clone $REPO ../$REPO"
+#          git clone $entry
       done
       exit
       ;;
