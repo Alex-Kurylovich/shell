@@ -9,10 +9,8 @@ case "$1" in
       ;;
   "gitrepourl")
       echo 'Read git remote entries in your repositories if available.'
-      echo 'Read ./git/config url from all projects and create git urls file gitrepos'
       cat ../*/.git/config | grep "url = " | sort | awk '{print substr($0, 8)}' > ./gitrepos
-      echo 'Print gitrepos'
-      echo 'Find directories that do not contain .git directory'
+      # Find directories that do not contain .git directory
       find .. -maxdepth 1 -type d '!' -exec test -d "{}/.git" \; -print | sort | sed '1d' | awk '{print substr($0, 4)}' >> ./gitrepos
       cat gitrepos
       exit
