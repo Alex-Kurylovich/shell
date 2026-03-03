@@ -1,6 +1,6 @@
-
+#
 #  Converted  from  gitscript.sh using https://www.codeconvert.ai/convert-from-bash
-
+#
 import os
 import re
 import subprocess
