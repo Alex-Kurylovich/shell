@@ -1,5 +1,6 @@
 #
-#  Converted  from  gitscript.sh using https://www.codeconvert.ai/convert-from-bash
+#  Converted from gitscript.sh using https://www.codeconvert.ai/convert-from-bash
+#  run from terminal python3 gitscript.py
 #
 import os
 import re
