@@ -1,4 +1,5 @@
 # shell
-Common documents and shell scripts
 
-Sharing documents
+### Comments
+To login from Windows run<br/>
+git update-git-for-windows
